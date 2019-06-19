@@ -1,0 +1,26 @@
+.mmm-trimet-td {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mmm-trimet-full-wide {
+    width: 100%;
+}
+
+.mmm-trimet-stop-name {
+    .mmm-trimet-full-wide;
+    font-variant-caps: all-small-caps;
+    padding: 2px;
+}
+
+.mmm-trimet-line-short {
+    width: 70%;
+}
+
+.mmm-trimet-time {
+    width: 20%;
+}
+
+.mmm-trimet-live {
+    width: 10%;
+}
