@@ -16,7 +16,7 @@ Find more information about this on MagicMirror's website: https://magicmirror.b
 ## Download This Module
 ```bash
 cd MagicMirror/modules
-git clone https://magicmirror.builders/
+git clone https://github.com/shortword/MMM-Trimet.git
 ```
 
 ## Configure The Module
