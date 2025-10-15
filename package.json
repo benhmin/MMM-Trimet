@@ -1,0 +1,11 @@
+{
+  "name": "mmm-trimet",
+  "version": "1.0.0",
+  "description": "MagicMirror module to show Trimet arrivals",
+  "main": "MMM-Trimet.js",
+  "author": "Mike Bergeron",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
