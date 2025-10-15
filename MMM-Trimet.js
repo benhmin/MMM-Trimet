@@ -8,6 +8,8 @@ Module.register("MMM-Trimet", {
         minutes: 20,                // Trimet default = 20
         stopIds: [7631, 7789, 8343, 9831],          // Up to 10 stops
         updateInterval: 15000,     // 15 seconds (in milliseconds)
+        // Optional mapping of stopId (string) => friendly display name
+        stopNameMap: {},
         cache: {
             arrivals: [],
             locations: {},
@@ -67,7 +69,17 @@ Module.register("MMM-Trimet", {
             var stop_txt = document.createElement('div');
             stop_txt.classList.add('mmm-trimet-stop-name');
             stop_txt.classList.add('medium')
-            stop_txt.innerHTML += this.config.cache.locations[elem].desc.slice(0, this.config.maxStopNameLen);
+            // Prefer a mapped name from config.stopNameMap (keys are strings), otherwise use location description
+            var originalName = "";
+            if (this.config.cache.locations[elem] && this.config.cache.locations[elem].desc) {
+                originalName = this.config.cache.locations[elem].desc;
+            }
+            var mappedName = null;
+            if (this.config.stopNameMap && this.config.stopNameMap[String(elem)]) {
+                mappedName = this.config.stopNameMap[String(elem)];
+            }
+            var nameToShow = (mappedName !== null) ? mappedName : originalName;
+            stop_txt.innerHTML = nameToShow.slice(0, this.config.maxStopNameLen);
             stop_div.appendChild(stop_txt);
 
             // Create the arrival table

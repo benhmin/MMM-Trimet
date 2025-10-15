@@ -54,3 +54,34 @@ Key | Default | Description | Expected Type
 `minutes` | 20 | Get arrivals for this many minutes plus one more arrival; `maxTotalArrivals` will override this if more arrivals are retrieved in this timeframe | positive int
 `stopIds` | [7631, 7789, 8343, 9831] | Up to 10 Trimet stop IDs; find numbers [here](https://trimet.org/ride/stop_select_form.html) | list of ints
 `updateInterval` | 15000 | How often to update in ms. Default is every 15s | positive int
+
+`stopNameMap` | {} | Optional mapping of stopId (string) -> friendly display name. Keys must be strings (e.g. "6402"). If present, the mapped name will be used instead of the API-provided location description. | object
+
+### stopNameMap example
+
+You can override the stop labels displayed by the module by adding a `stopNameMap` object to the module `config` in your `config/config.js`. Keys should be strings containing the stop ID and values are the friendly names you want shown.
+
+Example configuration:
+
+```js
+{
+  module: "MMM-Trimet",
+  position: "top_right",
+  config: {
+    appId: "REPLACE_WITH_YOUR_APPID",
+    stopIds: [6402, 6403],
+    stopNameMap: {
+      "6402": "Our House Side (to 75 Bus)",
+      "6403": "Reed College Side (to Orange Line MAX)"
+    }
+  }
+}
+```
+
+Notes and behavior:
+
+- The module will prefer `stopNameMap` values (string keys) when rendering stop names. If a mapping entry is missing, it falls back to the Trimet API's location description.
+- Mapped names are truncated to the configured `maxStopNameLen` (default 25). Increase `maxStopNameLen` in the module source or configuration if you need longer labels.
+- A backup of the original module file was created when this feature was added: `modules/MMM-Trimet/MMM-Trimet.js.bak`. Restore it if you want to revert to the prior behavior.
+- After changing `config.js`, restart MagicMirror (or `pm2 restart mm`) to apply the change.
+
